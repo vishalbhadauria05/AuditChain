@@ -18,12 +18,12 @@ export default function RolesSection() {
   const roles = [
     {
       icon: <Users className="w-10 h-10 text-[#00FF88]" />,
-      title: "Giver (Funding Authority)",
+      title: "Funder (Funding Authority)",
       desc: "Creates projects and allocates funds to the blockchain escrow. Defines milestones, auditors, and fund release logic."
     },
     {
       icon: <CheckCircle className="w-10 h-10 text-[#00FF88]" />,
-      title: "Taker (Implementer / Municipality)",
+      title: "Executor (Implementer / Municipality)",
       desc: "Executes projects, submits evidence to IPFS, and requests milestone verification for tranche release."
     },
     {
@@ -56,7 +56,7 @@ export default function RolesSection() {
             <div className="w-20 h-20 rounded-full bg-[#00FF88]/10 flex items-center justify-center mb-4">
               {role.icon}
             </div>
-            <h3 className="text-2xl font-semibold text-[#00FF88]">{role.title}</h3>
+            <h3 className="text-2xl font-semibold text-[#ffffff]">{role.title}</h3>
             <p className="text-gray-400 leading-relaxed">{role.desc}</p>
 
             {/* small transparent anchor for wire alignment */}

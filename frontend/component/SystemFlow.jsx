@@ -1,139 +1,108 @@
 "use client"
 
 import { motion } from "framer-motion"
-import { Wallet, Lock, Database, Cpu, FileCheck, Network, BarChart3 } from "lucide-react"
+import {
+  Wallet,
+  Lock,
+  FileCheck,
+  Database,
+  ShieldCheck,
+  Network,
+  Cpu,
+  CheckCircle,
+  BarChart3,
+} from "lucide-react"
 
 const steps = [
   {
     id: 1,
-    title: "Giver → Escrow Contract",
+    title: "Funder (Government / Funding Organisation)",
     icon: <Wallet className="w-8 h-8 text-[#00FF88]" />,
-    desc: "The Giver creates a project and deposits funds into the blockchain EscrowContract with predefined milestones and deadlines."
+    desc: "Creates projects and milestones, and allocates total funds into a Smart Escrow Contract for decentralized milestone-based release."
   },
   {
     id: 2,
-    title: "Escrow Contract",
+    title: "Smart Escrow Contract (Blockchain Layer)",
     icon: <Lock className="w-8 h-8 text-[#00FF88]" />,
-    desc: "The EscrowContract securely holds project funds on-chain, stores milestone logic, and waits for valid verification credentials."
+    desc: "Holds all funds securely on-chain, defines milestones, tranches, and deadlines, and awaits Verifiable Credential (VC) submissions before releasing funds."
   },
   {
     id: 3,
-    title: "Taker & Auditor",
+    title: "Executor (Municipality / Contractor)",
     icon: <FileCheck className="w-8 h-8 text-[#00FF88]" />,
-    desc: "The Taker uploads milestone evidence to IPFS. The Auditor reviews it, performs verification, and signs a Verifiable Credential (VC)."
+    desc: "Executes project tasks, uploads milestone evidence, and submits verification requests for auditor review."
   },
   {
     id: 4,
-    title: "Off-chain Evidence Storage",
+    title: "Evidence Storage (IPFS)",
     icon: <Database className="w-8 h-8 text-[#00FF88]" />,
-    desc: "Evidence such as images, IoT logs, and reports are stored on IPFS or Arweave. The CID is embedded inside the Verifiable Credential."
+    desc: "Stores immutable project evidence such as images, IoT data, and reports. Generates a unique CID used for verification."
   },
   {
     id: 5,
-    title: "Relayer / Oracle",
-    icon: <Network className="w-8 h-8 text-[#00FF88]" />,
-    desc: "A Relayer or Oracle posts the VC hash and signature to the EscrowContract for on-chain validation and automated fund logic."
+    title: "Auditor (Verified Credential Issuer)",
+    icon: <ShieldCheck className="w-8 h-8 text-[#00FF88]" />,
+    desc: "Reviews evidence, validates on-site or IoT data, and issues cryptographically signed Verifiable Credentials (VCs) linked to milestone and CID."
   },
   {
     id: 6,
-    title: "Smart Contract Verification",
-    icon: <Cpu className="w-8 h-8 text-[#00FF88]" />,
-    desc: "The EscrowContract verifies auditor DID, VC hash, and milestone validity. Valid VCs trigger tranche release; invalid ones revert funds."
+    title: "Relayer",
+    icon: <Network className="w-8 h-8 text-[#00FF88]" />,
+    desc: "Transfers VC hashes and auditor signatures to the Smart Escrow Contract, optionally automating milestone expiry or on-chain updates."
   },
   {
     id: 7,
-    title: "Public Dashboard",
+    title: "On-Chain VC Verification",
+    icon: <Cpu className="w-8 h-8 text-[#00FF88]" />,
+    desc: "Verifies the auditor DID, checks VC signature validity, compares project and milestone IDs, validates CID, and updates project state."
+  },
+  {
+    id: 8,
+    title: "Outcome (VC Valid or Missing)",
+    icon: <CheckCircle className="w-8 h-8 text-[#00FF88]" />,
+    desc: "If VC is valid, funds are released to the Executor's wallet. If missing or expired, funds are reverted or slashed back to the Funder."
+  },
+  {
+    id: 9,
+    title: "Public and Internal Dashboards",
     icon: <BarChart3 className="w-8 h-8 text-[#00FF88]" />,
-    desc: "Everyone — Giver, Taker, Auditor — can view verified milestones, fund flows, and immutable audit logs in real time."
+    desc: "Funder tracks project funds, Executor monitors milestones and payments, Auditor sees VC logs, and the public views transparent audit records."
   }
 ]
 
-// Animation configs (JS version)
+// Snappy animation preset (no stagger)
 const cardVariants = {
-  hidden: { opacity: 0, y: 60 },
-  visible: (i) => ({
+  hidden: { opacity: 0, y: 50 },
+  visible: {
     opacity: 1,
     y: 0,
-    transition: { delay: i * 0.4 + 0.5, duration: 0.7, ease: "easeOut" }
-  })
-}
-
-const wireVariants = {
-  hidden: { pathLength: 0 },
-  visible: (i) => ({
-    pathLength: 1,
-    transition: { delay: i * 0.4, duration: 0.8, ease: "easeInOut" }
-  })
+    transition: { duration: 0.5, ease: "easeOut" },
+  },
 }
 
 export default function SystemFlow() {
   return (
     <section className="relative z-10 py-32 bg-gradient-to-b from-black via-[#0a0a0a] to-black overflow-hidden">
-      {/* Background glow */}
+      {/* Background Glow */}
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(0,255,136,0.08)_0%,transparent_80%)] pointer-events-none" />
 
       {/* Header */}
       <div className="max-w-6xl mx-auto text-center mb-20 relative z-10">
-          <p style={{marginTop:-100}} className="text-gray-400 mt-6 text-lg">
-          A connected, verifiable, and tamper-proof fund release process.
+        <p style={{marginTop:-100}} className="text-gray-400 text-lg">
+          A connected, verifiable, and tamper-proof fund verification lifecycle powered by blockchain and Verifiable Credentials.
         </p>
       </div>
 
-      {/* Main section */}
-      <div className="relative max-w-5xl mx-auto flex flex-col items-center space-y-24 z-10">
-        {/* Curved connecting wires */}
-        <svg
-          className="absolute inset-0 w-full h-full pointer-events-none"
-          viewBox="0 0 1000 2300"
-          preserveAspectRatio="xMidYMid meet"
-        >
-          {[...Array(6)].map((_, i) => {
-            const yStart = 260 + i * 260
-            const yEnd = yStart + 260
-            const isLeft = i % 2 === 0
-            const xStart = isLeft ? 300 : 700
-            const xEnd = isLeft ? 700 : 300
-            const cp1x = isLeft ? 120 : 880
-            const cp2x = isLeft ? 880 : 120
-
-            return (
-              <motion.path
-                key={i}
-                d={`M ${xStart} ${yStart}
-                   C ${cp1x} ${yStart + 200},
-                     ${cp2x} ${yEnd - 200},
-                     ${xEnd} ${yEnd}`}
-                stroke="url(#beam)"
-                strokeWidth="2"
-                fill="transparent"
-                variants={wireVariants}
-                custom={i}
-                initial="hidden"
-                whileInView="visible"
-                viewport={{ once: true }}
-                style={{ filter: "blur(1px)", mixBlendMode: "screen" }}
-              />
-            )
-          })}
-          <defs>
-            <linearGradient id="beam" x1="0" y1="0" x2="1" y2="1">
-              <stop offset="0%" stopColor="#00FF88" stopOpacity="0.15" />
-              <stop offset="50%" stopColor="#00FF88" stopOpacity="0.9" />
-              <stop offset="100%" stopColor="#00FF88" stopOpacity="0.15" />
-            </linearGradient>
-          </defs>
-        </svg>
-
-        {/* Step cards */}
+      {/* Step Cards */}
+      <div className="relative max-w-5xl mx-auto flex flex-col items-center space-y-20 z-10">
         {steps.map((step, index) => (
           <motion.div
             key={step.id}
             variants={cardVariants}
-            custom={index}
             initial="hidden"
             whileInView="visible"
-            viewport={{ once: true }}
-            className={`relative bg-gradient-to-b from-gray-900 to-black border border-gray-800 rounded-2xl p-10 w-full md:w-3/4 shadow-[0_0_35px_rgba(0,255,136,0.08)] backdrop-blur-sm ${
+            viewport={{ once: true, amount: 0.3 }} // triggers earlier as you scroll
+            className={`relative bg-gradient-to-b from-gray-900 to-black border border-gray-800 rounded-2xl p-10 w-full md:w-3/4 shadow-[0_0_30px_rgba(0,255,136,0.05)] backdrop-blur-sm ${
               index % 2 === 0 ? "self-start" : "self-end"
             }`}
           >
@@ -141,16 +110,18 @@ export default function SystemFlow() {
               <div className="w-14 h-14 rounded-full bg-[#00FF88]/10 flex items-center justify-center">
                 {step.icon}
               </div>
-              <h3 className="text-2xl font-semibold text-[#00FF88]">{step.title}</h3>
+              <h3 className="text-2xl font-semibold text-[#ffffff]">
+                {step.title}
+              </h3>
             </div>
             <p className="text-gray-400 leading-relaxed">{step.desc}</p>
           </motion.div>
         ))}
       </div>
 
-      {/* Footer text */}
+      {/* Footer */}
       <div className="mt-32 text-center text-gray-500 text-sm">
-        A transparent, automated audit trail — from allocation to verified milestones.
+        Transparent, tamper-proof, and automated — AuditChain ensures funds move only when verified.
       </div>
     </section>
   )

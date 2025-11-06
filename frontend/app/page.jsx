@@ -1,14 +1,15 @@
 "use client"
 
+import Link from "next/link"
 import { Users, CheckCircle, Shield } from 'lucide-react'
-import CubeAnimation from '@/component/ui/fontPillar'
+import CubeAnimation from '@/component/ui/FontPillar'
 import SystemFlow from '@/component/SystemFlow'
-import RolesSection from '@/component/RolesSection'
+import RolesSection from "@/component/RolesSection"
 import RolesToSystemBridge from '@/component/ui/RolesToFlow'
 
 export default function Home() {
   return (
-    <div className="min-h-screen bg-black text-white overflow-y-auto">
+    <div className="min-h-screen bg-black text-white overflow-hidden">
       {/* Hero Section */}
     <section className="relative z-10 min-h-screen flex flex-col items-center justify-center px-6 py-20">
       <div className="absolute inset-0 z-0 opacity-20 pointer-events-none" style={{ transform: 'scale(1.5)' }}>
@@ -25,12 +26,17 @@ export default function Home() {
             Making public projects transparent, verifiable, and tamper-proof.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center pt-8">
+            <Link href='/login'>
             <button className="px-8 py-4 bg-[#00FF88] text-black font-semibold rounded-lg hover:bg-[#00FF88] hover:shadow-[0_0_30px_rgba(0,255,136,0.5)] transition-all duration-300">
-              Explore Demo
+              Register
             </button>
+            </Link>
+
+            <Link>
             <button className="px-8 py-4 border-2 border-white text-white font-semibold rounded-lg hover:bg-white hover:text-black transition-all duration-300">
-              Whitepaper
+              Contribute
             </button>
+            </Link>
           </div>
         </div>
         
@@ -45,7 +51,7 @@ export default function Home() {
       <section className="relative z-10 py-24 px-6">
         <div className="max-w-5xl mx-auto text-center space-y-16">
           <h2 className="text-4xl md:text-5xl font-bold text-white">
-            Powered by Blockchain and Verifiable Credentials
+            Powered by Blockchain Technologies
           </h2>
           <div className="flex flex-wrap justify-center items-center gap-12 md:gap-20">
             {/* Polygon Badge */}

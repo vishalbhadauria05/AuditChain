@@ -32,11 +32,11 @@ export default function Home() {
             </button>
             </Link>
 
-            <Link>
+            
             <button className="px-8 py-4 border-2 border-white text-white font-semibold rounded-lg hover:bg-white hover:text-black transition-all duration-300">
               Contribute
             </button>
-            </Link>
+            
           </div>
         </div>
         

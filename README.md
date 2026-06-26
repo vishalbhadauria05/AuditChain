@@ -1,8 +1,8 @@
 # AuditChain 🔗
 
-**Blockchain-based milestone verification and fund release platform with complete transparency**
+**Blockchain-based milestone verification and fund release platform with end-to-end transparency**
 
-> A decentralized escrow system where Givers fund projects, Takers complete work, and Auditors verify milestones before automatic fund release via smart contracts.
+> A decentralized escrow platform where Givers fund projects, Takers complete milestones, and Auditors verify progress before smart contracts automatically release funds.
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![Node.js](https://img.shields.io/badge/node-%3E%3D18.0.0-brightgreen)](https://nodejs.org/)
